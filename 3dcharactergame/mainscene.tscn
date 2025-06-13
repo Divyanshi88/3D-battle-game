@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://5mgt0gdj5bs3"]
+
+[ext_resource type="Script" uid="uid://bi76t6euecilh" path="res://main_scene.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://player.tscn" id="1_yjnkp"]
+[ext_resource type="PackedScene" uid="uid://c8yvwgvl3xnqr" path="res://enemy.tscn" id="2_enmcy"]
+[ext_resource type="PackedScene" path="res://ui.tscn" id="3_ui"]
+[ext_resource type="PackedScene" path="res://debug_overlay.tscn" id="4_debug"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ixnqr"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qwxvs"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ixnqr"]
+albedo_color = Color(0.2, 0.6, 0.2, 1)
+
+[node name="MainScene" type="Node3D"]
+script = ExtResource("1_main")
+enemy_scene = ExtResource("2_enmcy")
+
+[node name="Player" parent="." instance=ExtResource("1_yjnkp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_ixnqr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_qwxvs")
+surface_material_override/0 = SubResource("StandardMaterial3D_ixnqr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 10, 10)
+shadow_enabled = true
+
+[node name="Enemy1" parent="." instance=ExtResource("2_enmcy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 5)
+
+[node name="Enemy2" parent="." instance=ExtResource("2_enmcy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 5)
+
+[node name="Enemy3" parent="." instance=ExtResource("2_enmcy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -8)
+
+[node name="UI" parent="." instance=ExtResource("3_ui")]
+
+[node name="DebugOverlay" parent="." instance=ExtResource("4_debug")]
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[node name="SpawnPoints" type="Node3D" parent="."]
+
+[node name="SpawnPoint1" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2, 8)
+
+[node name="SpawnPoint2" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, 8)
+
+[node name="SpawnPoint3" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2, -8)
+
+[node name="SpawnPoint4" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, -8)

@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://csujd08rbgpjy"
+path.s3tc="res://.godot/imported/Hero_2.png-df4659710f1b11b8128c2c794340fa77.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "6677eef315fefd08259fdb3e2771dfcd"
+}
+
+[deps]
+
+source_file="res://assets/characters/hero/Hero_2.png"
+dest_files=["res://.godot/imported/Hero_2.png-df4659710f1b11b8128c2c794340fa77.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=1
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=1
+roughness/src_normal="res://assets/characters/hero/Hero_2.png"
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0
