@@ -1,0 +1,221 @@
+[gd_scene load_steps=14 format=3 uid="uid://boktcqsusg7ia"]
+
+[ext_resource type="Script" uid="uid://broxo700tj03n" path="res://battle_arena.gd" id="1_0yjnx"]
+[ext_resource type="PackedScene" uid="uid://cuhblmgtgqegu" path="res://hero.tscn" id="2_nh4kl"]
+[ext_resource type="PackedScene" uid="uid://jlovhdhi55gt" path="res://enemy.tscn" id="3_yvr8p"]
+[ext_resource type="Material" path="res://assets/materials/ground_material.tres" id="4_j6ykr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j6ykr"]
+size = Vector3(30, 1, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yvnqe"]
+material = ExtResource("4_j6ykr")
+size = Vector3(30, 1, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lfgxv"]
+size = Vector3(1, 4, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_iqnvs"]
+size = Vector3(1, 4, 30)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yvr8p"]
+albedo_color = Color(0.4, 0.2, 0.1, 1)
+
+[sub_resource type="Environment" id="Environment_j6ykr"]
+ambient_light_source = 2
+ambient_light_color = Color(0.5, 0.5, 0.5, 1)
+fog_enabled = true
+fog_light_color = Color(0.517647, 0.552941, 0.607843, 1)
+fog_density = 0.001
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+
+[sub_resource type="LabelSettings" id="LabelSettings_yvr8p"]
+font_size = 24
+font_color = Color(0, 1, 0, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lfgxv"]
+font_size = 24
+font_color = Color(1, 0, 0, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yvnqe"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.901961)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="BattleArena" type="Node3D"]
+script = ExtResource("1_0yjnx")
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Ground"]
+shape = SubResource("BoxShape3D_j6ykr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Ground"]
+mesh = SubResource("BoxMesh_yvnqe")
+
+[node name="Wall1" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Wall1"]
+shape = SubResource("BoxShape3D_lfgxv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Wall1"]
+mesh = SubResource("BoxMesh_iqnvs")
+surface_material_override/0 = SubResource("StandardMaterial3D_yvr8p")
+
+[node name="Wall2" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Wall2"]
+shape = SubResource("BoxShape3D_lfgxv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Wall2"]
+mesh = SubResource("BoxMesh_iqnvs")
+surface_material_override/0 = SubResource("StandardMaterial3D_yvr8p")
+
+[node name="Wall3" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 2, -15)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Wall3"]
+shape = SubResource("BoxShape3D_lfgxv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Wall3"]
+mesh = SubResource("BoxMesh_iqnvs")
+surface_material_override/0 = SubResource("StandardMaterial3D_yvr8p")
+
+[node name="Wall4" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 2, 15)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Wall4"]
+shape = SubResource("BoxShape3D_lfgxv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Wall4"]
+mesh = SubResource("BoxMesh_iqnvs")
+surface_material_override/0 = SubResource("StandardMaterial3D_yvr8p")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 10, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_j6ykr")
+
+[node name="Hero" parent="." instance=ExtResource("2_nh4kl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="Enemy" parent="." instance=ExtResource("3_yvr8p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 8, 12)
+fov = 60.0
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeroHealth" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -50.0
+offset_right = 220.0
+offset_bottom = -20.0
+grow_vertical = 0
+text = "Human: 120/120"
+label_settings = SubResource("LabelSettings_yvr8p")
+
+[node name="EnemyHealth" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -50.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Zombie: 80/80"
+label_settings = SubResource("LabelSettings_lfgxv")
+horizontal_alignment = 2
+
+[node name="GameOverPanel" type="Panel" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yvnqe")
+
+[node name="ResultLabel" type="Label" parent="UI/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 20.0
+offset_right = 100.0
+offset_bottom = 60.0
+grow_horizontal = 2
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="UI/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = 20.0
+offset_right = 60.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Restart"
+
+[node name="Instructions" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 80.0
+grow_horizontal = 2
+text = "WASD to move, SPACE to attack"
+horizontal_alignment = 1
